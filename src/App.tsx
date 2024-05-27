@@ -1,24 +1,31 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import "./App.css";
 
 function App() {
+  const [arr, setArr] = useState<number[]>([]);
+  const [count, setCount] = useState(0);
+
+  const incrementHandle = () => {
+    let newArr = arr;
+    newArr.push((arr[arr.length - 1] || 0) + 1);
+    console.log("newArr", newArr, "arr:", arr);
+    setArr(newArr);
+  };
+
+  const handleAdd = () => {
+    setCount(count + 1);
+    setTimeout(() => {
+      setCount(count + 2);
+    }, 2000)
+  };
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {arr.map((item) => (
+        <div>{`顺序${item}`}</div>
+      ))}
+      <div onClick={incrementHandle}>点我</div>
+      <div>{`当前值${count}`}</div>
+      <div onClick={handleAdd}>加我</div>
     </div>
   );
 }
